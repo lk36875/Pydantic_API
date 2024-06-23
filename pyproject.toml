@@ -1,0 +1,71 @@
+[tool.poetry]
+name = "pydantic-project"
+version = "0.1.0"
+description = ""
+authors = ["Łukasz Główka <glowka36875@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = {extras = ["all"], version = "^0.109.0"}
+sqlalchemy = "^2.0.25"
+requests = "^2.31.0"
+pytest = "7.0.0"
+black = "^24.1.1"
+isort = "^5.13.2"
+flake8 = "^7.0.0"
+flake8-pyproject = "^1.2.3"
+uvicorn = "^0.27.0.post1"
+psycopg2-binary = "^2.9.9"
+async-asgi-testclient = "^1.4.11"
+aiosqlite = "^0.20.0"
+anyio = "^4.3.0"
+pytest-asyncio = "^0.23.6"
+asyncpg = "^0.29.0"
+alembic = "^1.13.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+[tool.poetry.dev-dependencies]
+asyncio = "^3.4.3"
+[tool.black]
+line-length = 120
+target-version = ['py311']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | _build
+)/
+'''
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
+
+
+[tool.flake8]
+exclude = ".venv, .git"
+max-complexity = 10
+max-line-length = 120
+extend-ignore = """
+    W503,
+    E203,
+    E701,
+"""
+per-file-ignores = """
+    __init__.py: F401
+    ./src/*: E402
+"""
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+line_length = 120

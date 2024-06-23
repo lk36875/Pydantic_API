@@ -1,0 +1,27 @@
+version: '3'
+
+x-default-volumes: &default_volumes
+  volumes:
+    - ./:/app
+
+services:
+  fastapi_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8010:8000"
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgresql+asyncpg://fastapi_user:fastapi_password@postgres:5432/fastapi_db
+    <<: *default_volumes
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: fastapi_db
+      POSTGRES_USER: fastapi_user
+      POSTGRES_PASSWORD: fastapi_password
+    ports:
+      - "5432:5432"
